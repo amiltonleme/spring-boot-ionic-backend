@@ -15,6 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.amiltonleme.cursomc.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Cliente implements Serializable {
@@ -31,6 +33,7 @@ public class Cliente implements Serializable {
 	//Esse tipo era do TipoCliente e foi alterado para Integer para salvar no banco como numérico.
 	private Integer tipo;
 	
+	@JsonManagedReference
 	//Um cliente pode ter vários endereços.
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
