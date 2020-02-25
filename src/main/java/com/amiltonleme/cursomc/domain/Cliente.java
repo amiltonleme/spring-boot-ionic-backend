@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.amiltonleme.cursomc.domain.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -42,10 +41,13 @@ public class Cliente implements Serializable {
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
+	@OneToMany (mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+	
 	public Cliente () {
 	}
 
-	//As listas não entram nos construtores, pois eles já foram iniciados
+	//As listas não entram nos construtores, pois elas já foram iniciados
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
 		super();
 		this.id = id;
@@ -106,13 +108,20 @@ public class Cliente implements Serializable {
 		this.enderecos = enderecos;
 	}
 
-
 	public Set<String> getTelefones() {
 		return telefones;
 	}
 
-	public void setNumero(Set<String> telefones) {
+	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override

@@ -34,6 +34,10 @@ public class Produto implements Serializable {
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 	
+//	@OneToMany
+//	
+//	private List<Pedido> pedidos = new ArrayList<>();
+	
 	public Produto () {
 	}
 

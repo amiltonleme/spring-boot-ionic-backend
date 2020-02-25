@@ -21,6 +21,8 @@ public class Cidade implements Serializable {
 	private Integer id;
 	private String nome;
 	
+	//Como a classe cidade conhece o seu estado, essa classe vai serializar o estado (@JsonManagedReference) e na classe
+	//Estado será a backReference, pois não poderá serializar a classe cidade, senão teremos uma seiralização cíclica.
 	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn (name="estado_id")
