@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class Categoria implements Serializable {
 	
@@ -22,7 +20,9 @@ public class Categoria implements Serializable {
 	private Integer id;
 	private String nome;
 	
-	@JsonManagedReference
+	/*Por problemas no pacote Jackson, simplesmente apagaremos o //@JsonManagedReference
+	  e onde tem o //@JsonBackReference, trocaremos por @JsonIgnore
+	  @JsonManagedReference*/
 	//Muitas categorias para muitos produtos (O produto pode ser de várias categorias e a categorias ter vários produtos
 	@ManyToMany (mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();

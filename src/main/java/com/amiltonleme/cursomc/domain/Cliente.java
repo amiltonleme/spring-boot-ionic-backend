@@ -15,8 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.amiltonleme.cursomc.domain.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Cliente implements Serializable {
@@ -33,7 +32,10 @@ public class Cliente implements Serializable {
 	//Esse tipo era do TipoCliente e foi alterado para Integer para salvar no banco como numérico.
 	private Integer tipo;
 	
-	@JsonManagedReference
+	/*Por problemas no pacote Jackson, simplesmente apagaremos o //@JsonManagedReference
+	  e onde tem o //@JsonBackReference, trocaremos por @JsonIgnore
+	  @JsonManagedReference*/
+	
 	//Um cliente pode ter vários endereços.
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -42,7 +44,9 @@ public class Cliente implements Serializable {
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
-	@JsonBackReference
+	/*Por problemas no pacote Jackson, simplesmente apagaremos o //@JsonManagedReference
+	  e onde tem o //@JsonBackReference, trocaremos por @JsonIgnore */
+	@JsonIgnore
 	@OneToMany (mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
