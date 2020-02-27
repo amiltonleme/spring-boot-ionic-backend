@@ -31,4 +31,14 @@ public class CategoriaService {
 //		
 //		return obj.orElse(null);
 	}
+	
+	public Categoria insert(Categoria obj) {
+		
+		  /* ao se setar ID com NULL se garante que será criado um novo objeto. Caso
+		   contrário, se houver um ID especificado será atualizado o objeto
+		   correspondente.*/
+		obj.setId(null);
+
+		return repo.save(obj);
+	}
 }
