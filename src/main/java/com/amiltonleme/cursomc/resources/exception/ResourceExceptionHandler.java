@@ -1,8 +1,5 @@
 package com.amiltonleme.cursomc.resources.exception;
 
-import java.security.Timestamp;
-import java.text.SimpleDateFormat;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
@@ -29,6 +26,5 @@ public class ResourceExceptionHandler {
 		StandardError err = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
-	
 
 }
