@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.amiltonleme.cursomc.domain.Categoria;
+import com.amiltonleme.cursomc.dto.CategoriaDTO;
 import com.amiltonleme.cursomc.repositories.CategoriaRepository;
 import com.amiltonleme.cursomc.services.exceptions.DataIntegrityException;
 import com.amiltonleme.cursomc.services.exceptions.ObjectNotFoundException;
@@ -62,14 +63,17 @@ public class CategoriaService {
 		}
 	}
 	
-		public List<Categoria> findAll (){
+	public List<Categoria> findAll (){
 		return repo.findAll();
 	}
 		
-		public Page<Categoria> findPage (Integer page, Integer linesPerPage, String orderBy, String direction){
-			//PageRequest Está no pacote Spring Data
-			PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-			return repo.findAll(pageRequest);
-			
-		}
+	public Page<Categoria> findPage (Integer page, Integer linesPerPage, String orderBy, String direction){
+		//PageRequest Está no pacote Spring Data
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findAll(pageRequest);
+	}
+		
+	public Categoria fromDTO (CategoriaDTO objDto) {
+		return new Categoria (objDto.getId(), objDto.getNome());
+	}
 }
