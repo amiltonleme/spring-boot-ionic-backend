@@ -48,8 +48,11 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		/* Se houver um ID especificado será atualizado o objeto
 		correspondente.*/
-		find(obj.getId());
-		return repo.save(obj);
+		//Instancia um objeto a partir do banco de dados e esse objeto estará monitorado pelo JPA
+		Categoria newObj = find(obj.getId());
+		//método auxiliar para atualizar os dados do novo objeto newObj com base no objeto que veio como argumento
+		updateData(newObj, obj);
+		return repo.save(newObj);
 	}
 	
 	public void delete(Integer id){
@@ -75,5 +78,9 @@ public class CategoriaService {
 		
 	public Categoria fromDTO (CategoriaDTO objDto) {
 		return new Categoria (objDto.getId(), objDto.getNome());
+	}
+	
+	private void updateData (Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
 	}
 }

@@ -42,9 +42,9 @@ public class ClienteService {
 	public Cliente update(Cliente obj) {
 		/* Se houver um ID especificado será atualizado o objeto
 		correspondente.*/
-		//Instancia um cliente a partir do banco de dados
+		//Instancia um objeto a partir do banco de dados e esse objeto estará monitorado pelo JPA
 		Cliente newObj = find(obj.getId());
-		//método auxiliar para atiualizar os dados do novo objeto newObj com base no objeto que veio como argumento
+		//método auxiliar para atualizar os dados do novo objeto newObj com base no objeto que veio como argumento
 		updateData(newObj, obj);
 		return repo.save(newObj);
 	}

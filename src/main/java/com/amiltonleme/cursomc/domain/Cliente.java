@@ -61,6 +61,7 @@ public class Cliente implements Serializable {
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
 		//O inteiro dessa classe receberá o getCod do TipoCliente
+		//Operador ternário - Se tipo for igual a null, atribui null caso contrário atribui tipo.getCod()
 		this.tipo = (tipo == null) ? null : tipo.getCod();
 	}
 
