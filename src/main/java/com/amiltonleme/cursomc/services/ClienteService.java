@@ -76,7 +76,7 @@ public class ClienteService {
 		}
 		//Se tentar apagar uma Cliente que contenha produto, a exception será tratada abaixo
 		catch (DataIntegrityViolationException e){
-			throw new DataIntegrityException("Não é possível excluir um cliente que contenha entidades relacionadas");
+			throw new DataIntegrityException("Não é possível excluir um cliente que contenha pedidos relacionados");
 		}
 	}
 	
