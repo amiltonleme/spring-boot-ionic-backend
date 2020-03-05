@@ -37,6 +37,7 @@ public class Cliente implements Serializable {
 	  @JsonManagedReference*/
 	
 	//Um cliente pode ter vários endereços.
+	//CascadeType autoriza a deleção dos enderecos do cliente
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
