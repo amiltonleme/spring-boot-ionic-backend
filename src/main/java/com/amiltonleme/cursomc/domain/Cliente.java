@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,10 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	/*Essa anotação "@Column(unique = true)" faz o banco de dados não ter repetição de campo,
+	 * porém não conseguiremos dar uma mensagem personalizada para o usuário*/
+	@Column(unique = true)
 	private String email;
 	private String cpfOuCnpj;
 	
