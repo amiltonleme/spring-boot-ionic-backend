@@ -70,6 +70,7 @@ public class CategoriaService {
 		return repo.findAll();
 	}
 		
+	//Esses atributos servem para paginação
 	public Page<Categoria> findPage (Integer page, Integer linesPerPage, String orderBy, String direction){
 		//PageRequest Está no pacote Spring Data
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
