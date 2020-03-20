@@ -20,8 +20,8 @@ public class Categoria implements Serializable {
 	private Integer id;
 	private String nome;
 	
-	/*Por problemas no pacote Jackson, simplesmente apagaremos o //@JsonManagedReference
-	  e onde tem o //@JsonBackReference, trocaremos por @JsonIgnore
+	/*Por problemas no pacote Jackson, simplesmente apagaremos o @JsonManagedReference
+	  e onde tem o @JsonBackReference, trocaremos por @JsonIgnore
 	  @JsonManagedReference*/
 	//Muitas categorias para muitos produtos (O produto pode ser de várias categorias e a categorias ter vários produtos
 	@ManyToMany (mappedBy = "categorias")

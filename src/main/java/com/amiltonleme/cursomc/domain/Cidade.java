@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 public class Cidade implements Serializable {
 	
@@ -24,10 +22,9 @@ public class Cidade implements Serializable {
 	/*Como a classe cidade conhece o seu estado, essa classe vai serializar o estado (@JsonManagedReference) e na classe
 	  Estado será a backReference, pois não poderá serializar a classe cidade, senão teremos uma seiralização cíclica. */
 	
-	/*Por problemas no pacote Jackson, simplesmente apagaremos o //@JsonManagedReference
-	  e onde tem o //@JsonBackReference, trocaremos por @JsonIgnore
-	  @JsonManagedReference*/
-	@JsonIgnore
+	/*Por problemas no pacote Jackson, simplesmente apagaremos o @JsonManagedReference
+	  e onde tem o @JsonBackReference, trocaremos por @JsonIgnore*/
+	//@JsonManagedReference
 	@ManyToOne
 	@JoinColumn (name="estado_id")
 	private Estado estado;
