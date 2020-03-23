@@ -63,6 +63,7 @@ public class DBService {
 		Categoria cat5 = new Categoria(null, "Eletrônicos");
 		Categoria cat6 = new Categoria(null, "Decoração");
 		Categoria cat7 = new Categoria(null, "Perfumaria");
+//		Categoria cat8 = new Categoria(null, "Teste");
 		
 		//Instanciação de objetos
 		Produto p1 = new Produto(null, "Computador", 2000.00);
