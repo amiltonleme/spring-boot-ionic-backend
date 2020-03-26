@@ -17,6 +17,8 @@ public class DevConfig {
 	@Autowired
 	private DBService dbService;
 	
+	/*Esse Value pega o valor "spring.jpa.hibernate.ddl-auto" do application.dev e compara para 
+	ver se é create ou não para instanciar a base de dados*/
 	@Value("${spring.jpa.hibernate.ddl-auto}")
 	private String strategy;
 	
