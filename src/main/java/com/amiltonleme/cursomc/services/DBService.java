@@ -132,7 +132,7 @@ public class DBService {
 		//+++++++++++++++++++++++++++++++++++++++++++++++++++
 		
 		//Instanciação de objetos
-		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Maria Silva", "amilton.leme@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
 		
 		//Associação do cliente com os telefones
 		cli1.getTelefones().addAll(Arrays.asList("27363326", "93839383"));
