@@ -37,6 +37,9 @@ public class Cliente implements Serializable {
 	//Esse tipo era do TipoCliente e foi alterado para Integer para salvar no banco como numérico.
 	private Integer tipo;
 	
+	@JsonIgnore
+	private String senha;
+	
 	/*Por problemas no pacote Jackson, simplesmente apagaremos o //@JsonManagedReference
 	  e onde tem o //@JsonBackReference, trocaremos por @JsonIgnore
 	  @JsonManagedReference*/
@@ -60,7 +63,7 @@ public class Cliente implements Serializable {
 	}
 
 	//As listas não entram nos construtores, pois elas já foram iniciados
-	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -69,6 +72,7 @@ public class Cliente implements Serializable {
 		//O inteiro dessa classe receberá o getCod do TipoCliente
 		//Operador ternário - Se tipo for igual a null, atribui null caso contrário atribui tipo.getCod()
 		this.tipo = (tipo == null) ? null : tipo.getCod();
+		this.senha = senha;
 	}
 
 	public Integer getId() {
@@ -113,6 +117,14 @@ public class Cliente implements Serializable {
 		this.tipo = tipo.getCod();
 	}
 	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
