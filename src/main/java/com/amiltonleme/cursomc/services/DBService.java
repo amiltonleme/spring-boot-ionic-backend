@@ -20,6 +20,7 @@ import com.amiltonleme.cursomc.domain.PagamentoComCartao;
 import com.amiltonleme.cursomc.domain.Pedido;
 import com.amiltonleme.cursomc.domain.Produto;
 import com.amiltonleme.cursomc.domain.enums.EstadoPagamento;
+import com.amiltonleme.cursomc.domain.enums.Perfil;
 import com.amiltonleme.cursomc.domain.enums.TipoCliente;
 import com.amiltonleme.cursomc.repositories.CategoriaRepository;
 import com.amiltonleme.cursomc.repositories.CidadeRepository;
@@ -141,14 +142,23 @@ public class DBService {
 		cli1.getTelefones().addAll(Arrays.asList("27363326", "93839383"));
 		
 		//Instanciação de objetos
+		Cliente cli2 = new Cliente(null, "José Mauricio", "amilton.leme@uol.com.br", "59597543044", TipoCliente.PESSOAFISICA, pe.encode("123"));
+		cli2.addPerfil(Perfil.ADMIN);
+		
+		//Associação do cliente com os telefones
+		cli2.getTelefones().addAll(Arrays.asList("34576899", "938493698"));
+		
+		//Instanciação de objetos
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", c1, cli1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38771012", c2, cli1);
+		Endereco e3 = new Endereco(null, "Rua Mercearia", "105", null, "Centro", "38441012", c2, cli2);
 		
 		//Associação do cliente com endereço.
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
 		
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 		
 		//+++++++++++++++++++++++++++++++++++++++++++++++++++
 		
