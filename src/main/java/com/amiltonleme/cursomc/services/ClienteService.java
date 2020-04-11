@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.amiltonleme.cursomc.domain.Cidade;
 import com.amiltonleme.cursomc.domain.Cliente;
 import com.amiltonleme.cursomc.domain.Endereco;
+import com.amiltonleme.cursomc.domain.enums.Perfil;
 import com.amiltonleme.cursomc.domain.enums.TipoCliente;
 import com.amiltonleme.cursomc.dto.ClienteDTO;
 import com.amiltonleme.cursomc.dto.ClienteNewDTO;
 import com.amiltonleme.cursomc.repositories.ClienteRepository;
 import com.amiltonleme.cursomc.repositories.EnderecoRepository;
+import com.amiltonleme.cursomc.security.UserSS;
+import com.amiltonleme.cursomc.services.exceptions.AuthorizationException;
 import com.amiltonleme.cursomc.services.exceptions.DataIntegrityException;
 import com.amiltonleme.cursomc.services.exceptions.ObjectNotFoundException;
 
@@ -37,6 +40,13 @@ public class ClienteService {
 	
 // Implementação utlilizada para Spring Boot 2.x.x em diante.
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+			if(user==null || !user.hasRole(Perfil.ADMIN) && id.equals(user.getId())) {
+				throw new AuthorizationException("Acesso negado");
+			}
+				
+		
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 		"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));	
