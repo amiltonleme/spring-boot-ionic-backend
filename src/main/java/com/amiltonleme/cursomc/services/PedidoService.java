@@ -4,9 +4,13 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.amiltonleme.cursomc.domain.Cliente;
 import com.amiltonleme.cursomc.domain.ItemPedido;
 import com.amiltonleme.cursomc.domain.PagamentoComBoleto;
 import com.amiltonleme.cursomc.domain.Pedido;
@@ -14,6 +18,8 @@ import com.amiltonleme.cursomc.domain.enums.EstadoPagamento;
 import com.amiltonleme.cursomc.repositories.ItemPedidoRepository;
 import com.amiltonleme.cursomc.repositories.PagamentoRepository;
 import com.amiltonleme.cursomc.repositories.PedidoRepository;
+import com.amiltonleme.cursomc.security.UserSS;
+import com.amiltonleme.cursomc.services.exceptions.AuthorizationException;
 import com.amiltonleme.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -81,4 +87,28 @@ public class PedidoService {
 		return obj;
 	}
 	
+//	//Esses atributos servem para paginação
+//	public Page<Pedido> findPage (Integer page, Integer linesPerPage, String orderBy, String direction){
+//		UserSS user = UserService.authenticated(); 
+//		if (user==null) {
+//			throw new AuthorizationException("Acesso negado!");
+//		}
+//		//PageRequest Está no pacote Spring Data
+//		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+//		Cliente cliente = clienteService.find(user.getId());	
+//   		return repo.findByCliente(cliente, pageRequest);
+//	}
+
+	public Page<Pedido> findPage (Integer page, Integer linesPerPage, String orderBy, String direction){
+		//PageRequest Está no pacote Spring Data
+		UserSS user = UserService.authenticated(); 
+		if (user==null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		Cliente cliente = clienteService.find(user.getId());
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findByCliente(cliente, pageRequest);
+	}
+
+
 }

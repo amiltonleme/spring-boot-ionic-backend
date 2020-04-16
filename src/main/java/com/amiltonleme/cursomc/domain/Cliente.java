@@ -45,8 +45,7 @@ public class Cliente implements Serializable {
 	
 	/*Por problemas no pacote Jackson, simplesmente apagaremos o //@JsonManagedReference
 	  e onde tem o //@JsonBackReference, trocaremos por @JsonIgnore
-	  @JsonManagedReference*/
-	
+	 @JsonManagedReference*/
 	//Um cliente pode ter vários endereços.
 	//CascadeType autoriza a deleção dos enderecos do cliente
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)

@@ -40,13 +40,10 @@ public class ClienteService {
 	
 // Implementação utlilizada para Spring Boot 2.x.x em diante.
 	public Cliente find(Integer id) {
-		
 		UserSS user = UserService.authenticated();
-			if(user==null || !user.hasRole(Perfil.ADMIN) && id.equals(user.getId())) {
+			if(user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
 				throw new AuthorizationException("Acesso negado");
 			}
-				
-		
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 		"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));	
