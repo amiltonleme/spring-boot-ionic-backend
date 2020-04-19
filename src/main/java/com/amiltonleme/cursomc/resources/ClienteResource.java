@@ -45,9 +45,11 @@ public class ClienteResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	//Método para receber o valor do email como parâmetro
 	@RequestMapping(value="/email", method=RequestMethod.GET)
 	public ResponseEntity<Cliente> find(@RequestParam(value="value") String email) {
 		Cliente obj = service.findByEmail(email);
+		//Retorna o objeto na requisição
 		return ResponseEntity.ok().body(obj);
 	}
 	

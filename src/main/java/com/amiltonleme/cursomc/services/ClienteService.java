@@ -110,12 +110,15 @@ public class ClienteService {
 		return repo.findAll();
 	}
 		
+	//Método que retorna o cliente por email
 	public Cliente findByEmail(String email) {
+		//Procura o usuário que está autenticado
 		UserSS user = UserService.authenticated();
 		if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
 			throw new AuthorizationException("Acesso negado");
 		}
 
+		//Retorna os dados do cliente pelo email
 		Cliente obj = repo.findByEmail(email);
 		if (obj == null) {
 			throw new ObjectNotFoundException(
