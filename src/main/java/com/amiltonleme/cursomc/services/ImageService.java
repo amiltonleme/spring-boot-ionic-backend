@@ -10,6 +10,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FilenameUtils;
+import org.imgscalr.Scalr;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,6 +62,28 @@ public class ImageService {
 		} catch (IOException e) {
 			throw new FileException("Erro ao ler arquivo");
 		}
+	}
+	
+	//Método para descobrir e recortar a imagem para que fique quadrada
+	public BufferedImage cropSquare(BufferedImage sourceImg) {
+		//verifica se altura menor que largura ou vice-cersa
+		//Expressão condicional ternária
+		int min = (sourceImg.getHeight() <= sourceImg.getWidth()) ? sourceImg.getHeight() : sourceImg.getWidth();
+		
+		return Scalr.crop(
+			//Coordenadas de origem
+			sourceImg, 
+			(sourceImg.getWidth()/2) - (min/2), 
+			(sourceImg.getHeight()/2) - (min/2), 
+			min, 
+			min);		
+	}
+
+	//Método para redimensionar a imagem
+	//Recebe a imagem - BufferedImage sourceImg -- e o tamanho que quer que seja recortada - int size
+	public BufferedImage resize(BufferedImage sourceImg, int size) {
+		//Scalr - Classe importada na dependência no pom
+		return Scalr.resize(sourceImg, Scalr.Method.ULTRA_QUALITY, size);
 	}
 
 }

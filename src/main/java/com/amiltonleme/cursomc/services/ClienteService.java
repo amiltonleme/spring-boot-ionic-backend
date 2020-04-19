@@ -51,6 +51,9 @@ public class ClienteService {
 	@Value("${img.prefix.client.profile}")
 	private String prefix;
 	
+	@Value("${img.profile.size}")
+	private Integer size;
+	
 // Implementação utlilizada para Spring Boot 2.x.x em diante.
 	public Cliente find(Integer id) {
 		UserSS user = UserService.authenticated();
@@ -147,6 +150,10 @@ public class ClienteService {
 		
 		//recebe a imagem extraida do MultipartFile multipartFile
 		BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+		//Recorta a imagem para que fique quadrada
+		jpgImage = imageService.cropSquare(jpgImage);
+		//Redimensiona a imagem
+		jpgImage = imageService.resize(jpgImage, size);
 		//Monta o nome do arquivo personalizado
 		String fileName = prefix + user.getId() + ".jpg";
 		
