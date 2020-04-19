@@ -73,8 +73,8 @@ public class ClienteService {
 //		
 //		return obj.orElse(null);
 	}
-
-	@Transactional
+	
+		@Transactional
 	public Cliente insert(Cliente obj) {
 		/* ao se setar ID com NULL se garante que será criado um novo objeto. Caso
 		contrário, se houver um ID especificado será atualizado o objeto
@@ -110,6 +110,20 @@ public class ClienteService {
 		return repo.findAll();
 	}
 		
+	public Cliente findByEmail(String email) {
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+
+		Cliente obj = repo.findByEmail(email);
+		if (obj == null) {
+			throw new ObjectNotFoundException(
+					"Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Cliente.class.getName());
+		}
+		return obj;
+	}
+
 	public Page<Cliente> findPage (Integer page, Integer linesPerPage, String orderBy, String direction){
 		//PageRequest Está no pacote Spring Data
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
